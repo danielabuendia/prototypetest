@@ -1141,7 +1141,7 @@
     wording: store.get('unstick6.wording', 'B'), disc: store.get('unstick6.disc', []), onboarded: store.get('unstick6.onb', false),
     user: store.get('unstick6.user', null), loggedIn: store.get('unstick6.in', false), kit: store.get('unstick6.kit', { mode: 'none', fair: '' }), dismissAcct: store.get('unstick6.dis', false),
     screen: 'welcome', need: 'start', blockers: [], wants: [], followDefault: store.get('unstick16.fu', false), tourSeen: store.get('unstick25.tour', false), tourI: 0, makeNow: 'other', secs: 60, expect: false, expectText: '', orientSeen: store.get('unstick14.orient', false), before: null, after: null, prompt: null, speed: 1, ratings: false,
-    started: null, kept: 'no', extra: false, worked: 0, lastT: null, sim3: false, lock: store.get('unstick6.lock', true), lockSet: store.get('unstick12.lockset', false),
+    started: null, kept: 'no', extra: false, worked: 0, lastT: null, sim3: false, lock: store.get('unstick12.lockset', false) ? store.get('unstick6.lock', true) : true, lockSet: store.get('unstick12.lockset', false),
     history: store.get('unstick6.history', []), items: store.get('unstick6.items', []), reacts: store.get('unstick10.reacts', {}),
     libFilter: 'all', view: 'mine', addType: 'photo', addFor: null, addData: null, curItem: null, authMode: 'signup', tryFor: '', tryAs: 'other', howOpen: false, clips: {}, addClipUrl: '', kitMode: 'none', kitFair: '', kitMix: 'mine', addNext: '', howSeen: store.get('unstick8.how', false), howFrom: 'link'
   };
@@ -1168,8 +1168,8 @@
     if (!S.disc.length || S.disc.indexOf('other') > -1) return true;
     return p.d.indexOf('any') > -1 || p.d.some(function (x) { return S.disc.indexOf(x) > -1; });
   }
-  function lockOn() { return S.lock && ['music', 'film', 'photo'].indexOf(S.makeNow) < 0; }
-  function lockDefault() { return !S.disc.some(function (x) { return ['music', 'film', 'photo', 'digital'].indexOf(x) > -1; }); }
+  function lockOn() { return S.lock; }
+  function lockDefault() { return true; }
   function dayKey(ts) { return new Date(ts).toDateString(); }
   function madeDays() {
     var set = {};
@@ -1877,7 +1877,7 @@
     tour2_h: 'Do a tiny warm-up.', tour2_p: 'We set a short timer for you. Phone down. No one’s watching.',
     tour3_h: 'Then get back to your work.', tour3_p: 'That’s it. Then back to what you were doing.'
   });
-  T.m_lock_d = 'This helps you focus. It turns itself off when you pick music, video or photography, because you need your phone for those.';
+  T.m_lock_d = 'This helps you focus. Your screen stays dark until the timer ends. Turn it off if you need your phone.';
   T.au_create = 'I’m in'; T.w_btn = 'Create account';
   Object.assign(T, {
     h_q: 'How do you want to start?',
